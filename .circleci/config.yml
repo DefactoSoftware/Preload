@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: defactosoftware/elixir:1.8.0
+        environment:
+          MIX_ENV: test
+    steps:
+      - run: mix local.hex --force
+      - run: mix local.rebar --force
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-mix-deps-{{ checksum "mix.lock" }}
+      - run: mix deps.get
+      - run: mix credo --strict
+      - run: mix test
+      - save_cache:
+          key: v1-mix-deps-{{ checksum "mix.lock" }}
+          paths:
+            - "deps"
+            - "_build"
