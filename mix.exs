@@ -5,8 +5,8 @@ defmodule Preload.MixProject do
     [
       app: :preload,
       name: "Preload",
-      version: "0.1.0",
-      elixir: "~> 1.9",
+      version: "0.1.1",
+      elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: true,
       description: description(),
